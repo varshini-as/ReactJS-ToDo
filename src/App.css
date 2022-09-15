@@ -1,0 +1,64 @@
+.sign-in-card {
+  margin: 0 auto;
+  margin-top: 10% !important;
+  width: 27% !important;
+  border-radius: 10px;
+}
+
+.outlet {
+  margin-left: 126px;
+  margin-top: 10%;
+  width: 54%;
+  height: 400px !important;
+  overflow-y: scroll;
+}
+
+.profile-nav {
+  height: 100vh;
+  width: 21%;
+}
+
+.profile-nav li {
+  text-decoration: none;
+  color: aliceblue;
+}
+
+.assignee-list {
+  margin-top: 10%;
+  margin-left: 126px;
+  display: flex;
+  height: 400px !important;
+  overflow-y: scroll;
+}
+
+.assignee-list Badge {
+  margin-right: 4px;
+}
+
+.table td {
+  border-left: none;
+  border-right: none;
+}
+
+.center-block {
+  outline: 0;
+  width: 200px;
+  border-width: 0 0 1px;
+}
+
+.logo {
+  margin-top: 30px;
+  margin-left: 39%;
+  height: 60px;
+}
+
+.loader {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 10000000;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
