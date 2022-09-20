@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
 import { UserContext } from "../App";
 import { useNavigate, Outlet, NavLink } from "react-router-dom";
+import UpdateModal from '../components/modals/UpdateModal';
 import {
     CDBSidebar,
     CDBSidebarContent,
@@ -38,9 +39,10 @@ export default function ProfileDashboard() {
       );
     
       useEffect(() => {
-        let userInfo = JSON.parse(localStorage.getItem("Users"));
-        let userIndex = userInfo.findIndex((u) => u.user === user)
-        localStorage.setItem(JSON.parse(localStorage.getItem('Users'))[userIndex].Tasks, JSON.stringify(currentTaskList));
+        let users = JSON.parse(localStorage.getItem("Users"));
+        let userIndex = users.findIndex((u) => u.user === user)
+        users[userIndex].Tasks = currentTaskList;
+        localStorage.setItem("Users", JSON.stringify(users));
       }, [currentTaskList]);
 
     const navigate = useNavigate();
@@ -86,6 +88,7 @@ export default function ProfileDashboard() {
                             </CDBSidebarContent>
                         </CDBSidebar>
                     </div>
+                    <UpdateModal></UpdateModal>
 
                     <Outlet />
                 </div>

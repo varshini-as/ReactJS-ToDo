@@ -1,9 +1,11 @@
 import React, { useContext, useRef } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { UserContext } from "../../App";
+import { ToDoContext } from "../../pages/ProfileDashboard";
 
 export default function UpdateModal() {
-    const { updateModal, setUpdateModal, dispatch, status, handleSelect, currentTask } = useContext(UserContext);
+    const { updateModal, setUpdateModal, status, handleSelect, currentTask } = useContext(UserContext);
+    const {dispatch} = useContext(ToDoContext);
     const inputRef = useRef("");
 
     const handleUpdate = () => {

@@ -33,6 +33,18 @@ function App() {
   const [user, setUser] = useState();
   const [pwd, setPwd] = useState();
 
+  localStorage.setItem("Users", JSON.stringify(
+    [{
+      "user": "admin", "password": "123456", "Tasks": [
+        {
+          "task": "admin t1",
+          "status": "Pending",
+          "assigned": "ABC"
+        }
+      ]
+    }]
+  ))
+
   // const currentTaskList = JSON.parse(localStorage.getItem("Tasks"));
 
   // const [currentTaskList, dispatch] = useReducer(taskReducer,
@@ -60,12 +72,11 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser, pwd, setPwd, updateModal, setUpdateModal, oldValue, setOldVal, handleSelect, status, setShow, currentTask, setCurrentTask, search, setSearch }}>
       <div className="App">
-        <UpdateModal></UpdateModal>
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Login />} />
             <Route path='/profile' element={<ProfileDashboard />} >
-              <Route index path='home' element={<Home />} />  
+              <Route index path='home' element={<Home />} />
               <Route path='add' element={<AddTask />} />
               <Route path='completed' element={<Completed />} />
               <Route path='assignee' element={<AssigneeList />} />
