@@ -13,20 +13,20 @@ import UpdateModal from './components/modals/UpdateModal';
 
 export const UserContext = createContext();
 
-const taskReducer = (state, action) => {
-  switch (action.type) {
-    case "ADD_TASK":
-      return [...state, { id: Date.now(), task: action.payload.task, status: action.payload.status, assigned: action.payload.assignee }];
-    case "UPDATE_TASK":
-      return state.map((t) => t.task === action.payload.old ? { id: t.id, task: action.payload.old, status: action.payload.status, assigned: action.payload.assigned} : t);
-    case "DELETE_TASK":
-      return state.filter((t) => t.task !== action.payload);
-    case "CLEAR_TASKS":
-      return [];
-    default:
-      return state;
-  }
-}
+// export const taskReducer = (state, action) => {
+//   switch (action.type) {
+//     case "ADD_TASK":
+//       return [...state, { id: Date.now(), task: action.payload.task, status: action.payload.status, assigned: action.payload.assignee }];
+//     case "UPDATE_TASK":
+//       return state.map((t) => t.task === action.payload.old ? { id: t.id, task: action.payload.old, status: action.payload.status, assigned: action.payload.assigned} : t);
+//     case "DELETE_TASK":
+//       return state.filter((t) => t.task !== action.payload);
+//     case "CLEAR_TASKS":
+//       return [];
+//     default:
+//       return state;
+//   }
+// }
 
 function App() {
 
@@ -35,13 +35,13 @@ function App() {
 
   // const currentTaskList = JSON.parse(localStorage.getItem("Tasks"));
 
-  let [currentTaskList, dispatch] = useReducer(taskReducer,
-    JSON.parse(localStorage.getItem('Tasks'))
-  );
+  // const [currentTaskList, dispatch] = useReducer(taskReducer,
+  //   JSON.parse(localStorage.getItem('Tasks'))
+  // );
 
-  useEffect(() => {
-    localStorage.setItem("Tasks", JSON.stringify(currentTaskList));
-  }, [currentTaskList]);
+  // useEffect(() => {
+  //   localStorage.setItem("Tasks", JSON.stringify(currentTaskList));
+  // }, [currentTaskList]);
 
   const [show, setShow] = useState(false);
   const [updateModal, setUpdateModal] = useState(false);
@@ -58,7 +58,7 @@ function App() {
   // const filtered = !search ? currentTaskList.map(t => t.assigned): currentTaskList.map(t => t.assigned.startsWith(search) && t.assigned);
 
   return (
-    <UserContext.Provider value={{ user, setUser, pwd, setPwd, currentTaskList, dispatch, updateModal, setUpdateModal, oldValue, setOldVal, handleSelect, status, setShow, currentTask, setCurrentTask, search, setSearch }}>
+    <UserContext.Provider value={{ user, setUser, pwd, setPwd, updateModal, setUpdateModal, oldValue, setOldVal, handleSelect, status, setShow, currentTask, setCurrentTask, search, setSearch }}>
       <div className="App">
         <UpdateModal></UpdateModal>
         <BrowserRouter>

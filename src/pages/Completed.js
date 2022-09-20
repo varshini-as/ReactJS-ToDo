@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { UserContext } from "../App";
 import CustomTable from "../components/CustomTable";
+import { ToDoContext } from "./ProfileDashboard";
 
 export default function Completed() {
 
-    const { currentTaskList } = useContext(UserContext);
+    const { currentTaskList } = useContext(ToDoContext);
     console.log(currentTaskList);
 
     return (

@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import { Table, Badge } from "react-bootstrap";
 import { X } from 'react-bootstrap-icons';
 import { UserContext } from "../App";
+import { ToDoContext } from "../pages/ProfileDashboard";
 
 export default function CustomTable({ classnames, headers, data, columns, apiCall }) {
-    const {dispatch, setUpdateModal, setOldVal, setCurrentTask} = useContext(UserContext);
+    const { setUpdateModal, setOldVal, setCurrentTask} = useContext(UserContext);
+    const {dispatch } = useContext(ToDoContext);
 
     const deleteCell = (task) => {
         return <button type="submit"

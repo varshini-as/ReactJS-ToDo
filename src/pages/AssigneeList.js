@@ -2,9 +2,10 @@ import React from "react";
 import {  Badge, Card, ListGroup, ListGroupItem } from "react-bootstrap";
 import { useContext } from "react";
 import { UserContext } from "../App";
+import { ToDoContext } from "./ProfileDashboard";
 
 export default function AssigneeList() {
-    const { currentTaskList } = useContext(UserContext);
+    const { currentTaskList } = useContext(ToDoContext);
 
     let assignList = currentTaskList.map((t) => t.assigned);
     assignList = [...new Set(assignList)]; //remove duplicates

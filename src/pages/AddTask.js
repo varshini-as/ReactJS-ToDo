@@ -1,6 +1,7 @@
 import React, { useRef, useContext, useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { UserContext } from "../App";
+import { ToDoContext } from "./ProfileDashboard";
 
 export default function AddTask() {
 
@@ -8,7 +9,8 @@ export default function AddTask() {
     let assigneeInput = useRef("");
     const [isDisabled, setDisable] = useState(true);
 
-    const { setShow, currentTaskList, dispatch, status, handleSelect } = useContext(UserContext);
+    const { setShow, status, handleSelect } = useContext(UserContext);
+    const { currentTaskList, dispatch } = useContext(ToDoContext);
 
     const handleInput = (obj) => {
         // check for existing entry
@@ -60,7 +62,12 @@ export default function AddTask() {
                     </Form.Group>
 
                     <button className="btn btn-success pull-right"
-                        onClick={() => handleInput({ task: taskInput.current.value, status: status, assignee: assigneeInput.current.value })}
+                        onClick={() => handleInput(
+                            {
+                                task: taskInput.current.value,
+                                status: status,
+                                assignee: assigneeInput.current.value
+                            })}
                         disabled={isDisabled}
                     >Add</button>
                 </Card.Body>
