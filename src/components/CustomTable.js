@@ -44,7 +44,7 @@ export default function CustomTable({ classnames, headers, data, columns, apiCal
                 {
                     data.map(row => {  // data - array of objects, row - single object
                         return (
-                            <tr key={row.id}>
+                            <tr>
                                 {
                                     columns.map((col, i) => { // col - property of object
                                         return col === 'status' ?
@@ -54,7 +54,7 @@ export default function CustomTable({ classnames, headers, data, columns, apiCal
                                                 </Badge>
                                                 <option></option>
                                             </p> :
-                                            <td className="align-items-center">{row[col]}</td> // access property value
+                                            <td key={row.id} className="align-items-center">{row[col]}</td> // access property value
                                     })
                                 }
                                 {apiCall? null : <td style={{"width": "118px"}}>{updateCell(row)}{deleteCell(row.task)}</td>}

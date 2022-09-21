@@ -3,6 +3,7 @@ import { Card, Form, Button } from "react-bootstrap";
 import { UserContext } from "../App";
 import { Link, useNavigate } from "react-router-dom";
 import userLogo from '.././user.png'
+import { getUser } from "../service/crud";
 
 export default function Login() {
 
@@ -16,15 +17,25 @@ export default function Login() {
 
     const userList = JSON.parse(localStorage.getItem("Users"));
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         const u = userList.find(u => u.user === user);
         if (u && u.password === pwd) {  // user object found and password match
+            // console.log(api.get(u.user));
+            const res = await getUser(user);
+            console.log(res);
             setErr(false);
             setUser(u.user);
             navigate('/profile/home');
         } else {
             setErr(true);
         }
+        // const userInfo = await getUser(user);
+        // console.log(userInfo);
+        // if(userInfo && userInfo[0].password === pwd){
+        //     setUser(userInfo[0].user);
+        //     navigate('/profile/home');
+        // }
+        // setErr(true);
     }
 
     return (

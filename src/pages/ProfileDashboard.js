@@ -9,39 +9,38 @@ import {
     CDBSidebarMenu,
     CDBSidebarMenuItem,
 } from 'cdbreact';
+import { getTasks, getUser } from "../service/crud";
 
 export const ToDoContext = createContext();
 
 export const taskReducer = (state, action) => {
     switch (action.type) {
-      case "ADD_TASK":
-        return [...state, { id: Date.now(), task: action.payload.task, status: action.payload.status, assigned: action.payload.assignee }];
-      case "UPDATE_TASK":
-        return state.map((t) => t.task === action.payload.old ? { id: t.id, task: action.payload.old, status: action.payload.status, assigned: action.payload.assigned} : t);
-      case "DELETE_TASK":
-        return state.filter((t) => t.task !== action.payload);
-      case "CLEAR_TASKS":
-        return [];
-      default:
-        return state;
+        case "ADD_TASK":
+            return [...state, { id: Date.now(), task: action.payload.task, status: action.payload.status, assigned: action.payload.assignee }];
+        case "UPDATE_TASK":
+            return state.map((t) => t.task === action.payload.old ? { id: t.id, task: action.payload.old, status: action.payload.status, assigned: action.payload.assigned } : t);
+        case "DELETE_TASK":
+            return state.filter((t) => t.task !== action.payload);
+        case "CLEAR_TASKS":
+            return [];
+        default:
+            return state;
     }
-  }
+}
 
 export default function ProfileDashboard() {
 
     const { user, setUser, setPwd } = useContext(UserContext);
     const found = JSON.parse(localStorage.getItem("Users")).find((obj) => obj.user === user).Tasks;
-    // currentTaskList = found? found: currentTaskList;
-    const [currentTaskList, dispatch] = useReducer(taskReducer,
-        found? found: []
-      );
-    
-      useEffect(() => {
+
+    const [currentTaskList, dispatch] = useReducer(taskReducer, found);
+
+    useEffect(() => {
         let users = JSON.parse(localStorage.getItem("Users"));
         let userIndex = users.findIndex((u) => u.user === user)
         users[userIndex].Tasks = currentTaskList;
         localStorage.setItem("Users", JSON.stringify(users));
-      }, [currentTaskList]);
+    }, [currentTaskList]);
 
     const navigate = useNavigate();
 
@@ -52,7 +51,7 @@ export default function ProfileDashboard() {
     }
 
     return (
-        <ToDoContext.Provider value={{currentTaskList, dispatch}}>
+        <ToDoContext.Provider value={{ currentTaskList, dispatch }}>
             <div>
                 <div className="d-flex">
                     <div className="profile-nav">
