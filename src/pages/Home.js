@@ -10,7 +10,7 @@ export default function Home() {
         <div className="outlet">
             {currentTaskList !== []? 
             <div>
-                <CustomTable classnames={["table", "shadow", "align-items-center", "w-60"]}
+                <CustomTable classnames={["table", "shadow", "align-items-center", "w-60", "text-align-center"]}
                     data={currentTaskList}
                     headers={["Task", "Status", "Assigned To"]}
                     columns={["task", "status", "assigned"]}>

@@ -32,8 +32,6 @@ export default function ProfileDashboard() {
     const { user, setUser, setPwd } = useContext(UserContext);
     const found = JSON.parse(localStorage.getItem("Users")).find((obj) => obj.user === user).Tasks;
     // currentTaskList = found? found: currentTaskList;
-    console.log(localStorage.getItem(`Users.${user}.Tasks`));
-
     const [currentTaskList, dispatch] = useReducer(taskReducer,
         found? found: []
       );

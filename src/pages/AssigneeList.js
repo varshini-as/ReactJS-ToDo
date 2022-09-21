@@ -11,7 +11,7 @@ export default function AssigneeList() {
     assignList = [...new Set(assignList)]; //remove duplicates
 
     return (
-        <Card className="d-flex mx-auto layout shadow assignee-list w-50">
+        <Card className="d-flex mx-auto shadow assignee-list w-50">
             <Card.Body>
                 <Card.Title>Assignees</Card.Title>
                 <Card.Body>

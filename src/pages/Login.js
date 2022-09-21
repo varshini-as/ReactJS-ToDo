@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Card, Form, Button } from "react-bootstrap";
 import { UserContext } from "../App";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import userLogo from '.././user.png'
 
 export default function Login() {
@@ -21,7 +21,7 @@ export default function Login() {
         if (u && u.password === pwd) {  // user object found and password match
             setErr(false);
             setUser(u.user);
-            navigate('/profile');
+            navigate('/profile/home');
         } else {
             setErr(true);
         }
@@ -60,6 +60,7 @@ export default function Login() {
                             style={{ marginLeft: "40%" }}>Log in</Button>
                     </Form>
                 </Card.Body>
+                <Card.Footer>Don't have an account? Sign up <a><Link to="/register">here!</Link></a></Card.Footer>
             </Card>
         </div>
     )

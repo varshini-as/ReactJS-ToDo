@@ -1,13 +1,13 @@
 .sign-in-card {
   margin: 0 auto;
-  margin-top: 10% !important;
+  margin-top: 7% !important;
   width: 27% !important;
   border-radius: 10px;
 }
 
 .outlet {
   margin-left: 126px;
-  margin-top: 10%;
+  margin-top: 6%;
   width: 54%;
   height: 400px !important;
   overflow-y: scroll;
@@ -24,8 +24,8 @@
 }
 
 .assignee-list {
-  margin-top: 10%;
-  margin-left: 126px;
+  margin-top: 6%;
+  margin-left: 100px;
   display: flex;
   height: 400px !important;
   overflow-y: scroll;
