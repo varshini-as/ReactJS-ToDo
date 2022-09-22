@@ -5,7 +5,6 @@ import { ToDoContext } from "./ProfileDashboard";
 export default function Completed() {
 
     const { currentTaskList } = useContext(ToDoContext);
-    console.log(currentTaskList);
 
     return (
         <div className="outlet">

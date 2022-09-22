@@ -1,0 +1,45 @@
+{
+  "Users": [
+    {
+      "user": "admin",
+      "password": "123456",
+      "Tasks": [
+        {
+          "task": "admin t1",
+          "status": "In-progress",
+          "assigned": "Pooja"
+        }
+      ]
+    },
+    {
+      "user": "user1",
+      "password": "123456",
+      "Tasks": [
+        {
+          "id": 1663739398269,
+          "task": "dqwr",
+          "status": "Pending",
+          "assigned": "wqrq"
+        },
+        {
+          "id": 1663739406212,
+          "task": "wqe",
+          "status": "In-progress",
+          "assigned": "weq"
+        },
+        {
+          "id": 1663739415755,
+          "task": "qwqw",
+          "status": "In-progress",
+          "assigned": "wr"
+        },
+        {
+          "id": 1663739422652,
+          "task": "qwerqwr",
+          "status": "Done",
+          "assigned": "wqe"
+        }
+      ]
+    }
+  ]
+}

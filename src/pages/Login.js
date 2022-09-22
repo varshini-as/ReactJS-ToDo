@@ -20,9 +20,7 @@ export default function Login() {
     const onSubmit = async () => {
         const u = userList.find(u => u.user === user);
         if (u && u.password === pwd) {  // user object found and password match
-            // console.log(api.get(u.user));
             const res = await getUser(user);
-            console.log(res);
             setErr(false);
             setUser(u.user);
             navigate('/profile/home');
@@ -30,7 +28,6 @@ export default function Login() {
             setErr(true);
         }
         // const userInfo = await getUser(user);
-        // console.log(userInfo);
         // if(userInfo && userInfo[0].password === pwd){
         //     setUser(userInfo[0].user);
         //     navigate('/profile/home');
@@ -42,20 +39,20 @@ export default function Login() {
         <div>
             <Card className="sign-in-card shadow">
                 <Card.Body className="m-2">
-                    <img src={userLogo} className="logo mb-1" alt='person-icon' />
+                    <img src={userLogo} className="logo" alt='person-icon' />
                     <h4 className="text-center">Sign In</h4>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label className="mb-1">Username</Form.Label>
-                            <Form.Control className="mb-3"
+                    <Form className="gap-2">
+                        <Form.Group className="gap-2 mb-2">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control
                                 type="text"
                                 placeholder="Enter username"
                                 required
                                 onChange={(e) => setUser(e.target.value)} />
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label className="mb-1">Password</Form.Label>
-                            <Form.Control className="mb-3"
+                        <Form.Group className="gap-2">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
                                 type="password"
                                 placeholder="Enter password"
                                 required
@@ -67,11 +64,11 @@ export default function Login() {
                         </div>
                         <Button type="button"
                             onClick={onSubmit}
-                            className="btn btn-primary rounded"
-                            style={{ marginLeft: "40%" }}>Log in</Button>
+                            className="btn btn-primary rounded text-center w-100"
+                            >Log in</Button>
                     </Form>
                 </Card.Body>
-                <Card.Footer>Don't have an account? Sign up <a><Link to="/register">here!</Link></a></Card.Footer>
+                <Card.Footer className="text-center">Don't have an account? Sign up <a><Link to="/register">here!</Link></a></Card.Footer>
             </Card>
         </div>
     )

@@ -1,92 +1,101 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import CustomStatusModal from "../components/modals/CustomStatusModal";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Register() {
-    const usersInfo = JSON.parse(localStorage.getItem("Users"));
-    const users = usersInfo.map(u => u.user);
-    console.log(users);
+    const usersInfo = JSON.parse(localStorage.getItem("Users")) ? JSON.parse(localStorage.getItem("Users")) : [];
+    const users = usersInfo ? usersInfo.map(u => u.user) : [];
 
-    const [error, setError] = useState(false);
-
-    const userRef = useRef('');
-    const passwordRef = useRef();
-    const confRef = useRef();
+    const [user, setUser] = useState('');
+    const [pwd, setPwd] = useState('');
+    const [confirm, setConfirm] = useState('');
 
     const navigate = useNavigate();
 
-    const errors = [
-        "*This username already exists.",
-        "*Password must contain at least 6 characters.",
-        "*Passwords don't match.",
-        "This field should not be empty."
-    ]
-
     const onSubmit = () => {
-        if (valid) {
+        if (valid(user, pwd, confirm)) {
             localStorage.setItem("Users", JSON.stringify(
                 [
                     ...usersInfo,
                     {
-                        user: userRef.current.value,
-                        password: passwordRef.current.value,
+                        user: user,
+                        password: pwd,
                         Tasks: []
                     }
                 ]
             ));
             navigate("/");
         }
+
     }
 
-    const valid = (user, pwd, confirm_pwd) => {
-        if ((user in users) || (pwd.length < 6) || (pwd !== confirm_pwd)) {
+    const valid = (user, pwd, confirm) => {
+        if (user === '' ||
+            users.find((u) => u === user) ||
+            pwd.length < 6 ||
+            confirm !== pwd) {
             return false
         }
         return true
     }
 
     return (<div>
-        {/* {!valid()? <CustomStatusModal message={"You have registered successfuly!"} show={true}/>: null} */}
         <Card className="sign-in-card shadow">
             <Card.Body className="m-2">
                 <h4 className="text-center">Sign Up</h4>
                 <Form>
-                    <Form.Group>
-                        <Form.Label className="mb-1">Your username</Form.Label>
-                        <Form.Control className="mb-3"
+                    <Form.Group className="mb-3 gap-2">
+                        <Form.Label>Your username</Form.Label>
+                        <Form.Control
                             type="text"
                             placeholder="Enter username"
-                            ref={userRef}
-                            onChange={(e) => e.target.value === ''? setError(errors[3]): e.target.value in users? setError(errors[0]):setError('') }
+                            onChange={(e) => setUser(e.target.value)}
                             required />
+                        {!user &&
+                            <div className="text-danger text-center">
+                                <p>*This field is empty.</p>
+                            </div>}
+                        {users.find((u) => u === user) &&
+                            <div className="text-danger text-center">
+                                <p>*This user already exists.</p>
+                            </div>}
                     </Form.Group>
-                    <div className="text-danger text-center"
-                        style={{ visibility: error ? 'visible' : 'hidden' }}>
-                        <p>{error}</p>
-                    </div>
-                    <Form.Group>
-                        <Form.Label className="mb-1">Password</Form.Label>
-                        <Form.Control className="mb-3"
+                    <Form.Group className="mb-3 gap-2">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
                             type="password"
                             placeholder="Enter password"
-                            ref={passwordRef}
+                            onChange={(e) => setPwd(e.target.value)}
                             required />
+                        {!pwd &&
+                            <div className="text-danger text-center">
+                                <p>*This field is empty. Password must have at least 6 characters.</p>
+                            </div>}
                     </Form.Group>
-                    <Form.Group>
-                        <Form.Label className="mb-1">Confirm Password</Form.Label>
-                        <Form.Control className="mb-3"
+                    <Form.Group className="mb-2 gap-2">
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control
                             type="password"
                             placeholder="Re-enter password"
-                            ref={confRef}
+                            onChange={(e) => setConfirm(e.target.value)}
                             required />
+                        {!confirm &&
+                            <div className="text-danger text-center">
+                                <p>*This field is empty.</p>
+                            </div>}
+                        {(confirm && pwd !== confirm) &&
+                            <div className="text-danger text-center">
+                                <p>*Passwords do not match.</p>
+                            </div>}
                     </Form.Group>
                     <Button type="button"
                         onClick={onSubmit}
-                        className="btn btn-primary rounded"
-                        style={{ marginLeft: "40%" }}>Register</Button>
+                        className="btn btn-primary rounded w-100"
+                        disabled={!valid(user, pwd, confirm) ? true : false}
+                        >Register</Button>
                 </Form>
             </Card.Body>
+            <Card.Footer className="text-center">Already have an account? Login <a><Link to="/">here!</Link></a></Card.Footer>
         </Card>
     </div>);
 }

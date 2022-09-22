@@ -9,8 +9,7 @@ export default function UpdateModal() {
     const inputRef = useRef("");
 
     const handleUpdate = () => {
-        console.log(inputRef.current.value);
-        if (status !== '') { dispatch({ type: "UPDATE_TASK", payload: { old: currentTask.task, status:status, assigned: inputRef.current.value } }) };
+        if (status !== '') { dispatch({ type: "UPDATE_TASK", payload: { old: currentTask.task, status:status, assigned: inputRef.current.value === ''? currentTask.assigned: inputRef.current.value} }) };
         setUpdateModal(false);
     }
 
@@ -18,20 +17,20 @@ export default function UpdateModal() {
         <Modal show={updateModal}>
             <Modal.Header><b>Update Task</b></Modal.Header>
             <Modal.Body className="update-modal align-items-center">
-                <label>Change task:</label>
+                <Form.Label>Change task:</Form.Label>
                 <Form.Select defaultValue={""}
                     style={{ "margin-left": "5px", "width": "33%" }}
                     onChange={(e) => handleSelect(e.target.value)}>
                     <option disabled={true} value="">
                         --Select status--
                     </option>
+                    <option value="Pending">Pending</option>
                     <option value="In-progress">In-progress</option>
                     <option value="Done">Done</option>
                 </Form.Select>
                 <Form.Group>
-                    <label>Assigned to: </label>
-                    <input type="text" ref={inputRef} className="m-1" 
-                    onChange={(e) =>console.log(inputRef.current.value)}/>
+                    <Form.Label>Assigned to: </Form.Label>
+                    <Form.Control type="text" ref={inputRef} className="m-1" />
                 </Form.Group>
             </Modal.Body>
             <Modal.Footer>

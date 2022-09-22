@@ -2,6 +2,7 @@ import React, { useRef, useContext, useState } from "react";
 import { Card, Form } from "react-bootstrap";
 import { UserContext } from "../App";
 import { ToDoContext } from "./ProfileDashboard";
+import { MdAddTask } from "react-icons/md";
 
 export default function AddTask() {
 
@@ -28,29 +29,33 @@ export default function AddTask() {
     }
 
     return (
-        <div className="m-auto" style={{ marginTop: "20%", height: "300px", width: "400px" }}>
+        <div className="outlet">
             <Card>
                 <Card.Body className="w-100">
-                    <Form.Group>
-                        <label className="m-1">Task Description:</label>
-                        <input type="text"
-                            className="mb-3 center-block"
+                    <div className="d-flex gap-2 mb-2 mx-auto" style={{width: "fit-content"}}>
+                        <MdAddTask className="align-middle fa-2x" height={30} />
+                        <h4>Add a new task</h4>
+                    </div>
+                    <Form.Group className="m-3 gap-2">
+                        <Form.Label>
+                            Task Description:
+                        </Form.Label>
+                        <Form.Control type="text"
                             id="task"
                             ref={taskInput}
                             onChange={(e) => (taskInput.current.value.length === 0) ? setDisable(true) : setDisable(false)} />
                     </Form.Group>
-                    <Form.Group>
-                        <label className="m-1">Assigned To:</label>
-                        <input type="text"
-                            className="mb-3 center-block"
+                    <Form.Group className="m-3 gap-2">
+                        <Form.Label>Assigned To:</Form.Label>
+                        <Form.Control type="text"
                             id="assignee"
                             ref={assigneeInput}
                             onChange={(e) => (assigneeInput.current.value.length === 0) ? setDisable(true) : setDisable(false)} />
                     </Form.Group>
-                    <Form.Group className="d-flex">
-                        <label>Status &nbsp;</label>
+                    <Form.Group className="m-3 gap-2">
+                        <Form.Label>Task status:</Form.Label>
                         <Form.Select defaultValue={"Pending"}
-                            style={{ "marginLeft": "5px", marginRight: "5px", width: "150px" }}
+                            style={{ marginRight: "5px", width: "150px" }}
                             className="mb-3"
                             onChange={(e) => handleSelect(e.target.value)}>
                             <option disabled={true} value="">
@@ -61,7 +66,7 @@ export default function AddTask() {
                         </Form.Select>
                     </Form.Group>
 
-                    <button className="btn btn-success pull-right"
+                    <button className="btn btn-success pull-right w-100"
                         onClick={() => handleInput(
                             {
                                 task: taskInput.current.value,

@@ -1,6 +1,6 @@
 .sign-in-card {
   margin: 0 auto;
-  margin-top: 6% !important;
+  margin-top: 4% !important;
   width: 36% !important;
   border-radius: 10px;
 }
@@ -10,7 +10,7 @@
   margin-top: 6%;
   width: 54%;
   height: 400px !important;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .profile-nav {
@@ -47,8 +47,7 @@
 }
 
 .logo {
-  margin-top: 30px;
-  margin-left: 39%;
+  margin-left: 43%;
   height: 60px;
 }
 
@@ -61,4 +60,9 @@
   z-index: 10000000;
   opacity: 0.4;
   filter: alpha(opacity=40);
+}
+
+.scroll-table{
+  height: 100%;
+  overflow-y: scroll;
 }

@@ -13,6 +13,5 @@ export const getTasks = async (user) => {
     const res = await axios
         .get(`${url}?user=${user}`)
         .then((res) => res.data);
-    console.log(res[0].Tasks);
     return res[0].Tasks;
 }

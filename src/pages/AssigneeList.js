@@ -18,7 +18,6 @@ export default function AssigneeList() {
                     <ListGroup>
                         {
                             assignList.map((name) => {
-                                console.log(name);
                                 let pending_count = currentTaskList.filter((t) => t.status === 'Pending' && t.assigned === name).length;
                                 let progress_count = currentTaskList.filter((t) => t.status === 'In-progress' && t.assigned === name).length;
                                 let completed_count = currentTaskList.filter((t) => t.status === 'Done' && t.assigned === name).length;

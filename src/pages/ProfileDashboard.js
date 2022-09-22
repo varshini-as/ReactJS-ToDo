@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from "react";
+import React, { createContext, useContext, useReducer, useEffect, useState } from "react";
 import { UserContext } from "../App";
 import { useNavigate, Outlet, NavLink } from "react-router-dom";
 import UpdateModal from '../components/modals/UpdateModal';
@@ -33,14 +33,27 @@ export default function ProfileDashboard() {
     const { user, setUser, setPwd } = useContext(UserContext);
     const found = JSON.parse(localStorage.getItem("Users")).find((obj) => obj.user === user).Tasks;
 
-    const [currentTaskList, dispatch] = useReducer(taskReducer, found);
+
+    const [tasks, setTasks] = useState([]);
+
+    const getData = async () => {
+        const userInfo = await getUser(user);
+        const tasks = await userInfo[0].Tasks;
+        return tasks;
+        // setTasks(tasks);
+        // const [currentTaskList, dispatch] = useReducer(taskReducer, tasks);
+    }
+
+    const [currentTaskList, dispatch] = useReducer(taskReducer, JSON.parse(localStorage.getItem("Users")).find((obj) => obj.user === user).Tasks);
 
     useEffect(() => {
         let users = JSON.parse(localStorage.getItem("Users"));
         let userIndex = users.findIndex((u) => u.user === user)
         users[userIndex].Tasks = currentTaskList;
         localStorage.setItem("Users", JSON.stringify(users));
+        // getData();
     }, [currentTaskList]);
+
 
     const navigate = useNavigate();
 

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { Form } from "react-bootstrap";
 import CustomTable from "../components/CustomTable";
 import Loader from "../components/Loader";
+import { InfoCircleFill } from 'react-bootstrap-icons';
 
 export default function Completed() {
     const staticURL = "https://api.postalpincode.in/pincode";
@@ -41,6 +42,9 @@ export default function Completed() {
 
     return (
         <div className="outlet">
+            <div className="d-flex align-items-center mb-1 gap-2">
+                <InfoCircleFill /><h5>Enter a valid zipcode to fetch the list of post offices from API.</h5>
+            </div>
             <div className="d-flex align-items-center m-3">
                 <div className="d-flex align-items-center">
                     <label className="m-1">Zipcode</label>
@@ -52,17 +56,19 @@ export default function Completed() {
                 </div>
             </div>
             <Loader loading={loading} />
-            {!error && !loading && countryData ?
-                <>
-                    <CustomTable classnames={["table", "shadow", "align-items-center", "w-60"]}
-                        data={countryData}
-                        apiCall={true}
-                        headers={["Post Office", "Branch Type", "District", "State"]}
-                        columns={["Name", "BranchType", "District", "State"]}>
-                    </CustomTable>
-                </> :
-                error ?
-                    <h3 className="text-center m-5">Couldn't find data. Enter valid zipcode.</h3> : null}
+            <div style={{overflowY: "scroll", height: "300px"}}>
+                {!error && !loading && countryData ?
+                    <>
+                        <CustomTable classnames={["table", "shadow", "align-items-center", "w-60"]}
+                            data={countryData}
+                            apiCall={true}
+                            headers={["Post Office", "Branch Type", "District", "State"]}
+                            columns={["Name", "BranchType", "District", "State"]}>
+                        </CustomTable>
+                    </> :
+                    error ?
+                        <h3 className="text-center m-5">Couldn't find data. Enter valid zipcode.</h3> : null}
+            </div>
         </div>
     )
 }
