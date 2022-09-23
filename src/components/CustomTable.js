@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Table, Badge } from "react-bootstrap";
-import { X, ClockFill } from 'react-bootstrap-icons';
+import { X, ClockFill} from 'react-bootstrap-icons';
 import { UserContext } from "../App";
 import { ToDoContext } from "../pages/ProfileDashboard";
 
@@ -30,44 +30,45 @@ export default function CustomTable({ classnames, headers, data, columns, apiCal
         >Edit</button>
     }
 
+    if(!data){
+        return null
+    }
 
     return (
-        <>
-            <Table hover bordered className={classnames}>
-                <thead>
-                    <tr>
-                        {
-                            headers.map((h) => {
-                                return <td key={h}><b>{h}</b></td>
-                            })
-                        }
-                    </tr>
-                </thead>
-                <tbody>
+        <Table hover bordered className={classnames}>
+            <thead style={{ "position": "sticky" }}>
+                <tr>
                     {
-                        data.map(row => {  // data - array of objects, row - single object
-                            return (
-                                <tr key={row.id}>
-                                    {
-                                        columns.map((col, i) => { // col - property of object
-                                            return col === 'status' ?
-                                                <p className="m-0">
-                                                    <Badge bg={row[col] === 'In-progress' ? 'warning' : row[col] === 'Done' ? 'success' : 'danger'}>
-                                                        {row[col]}
-                                                    </Badge>
-                                                    <option></option>
-                                                </p> :
-                                                <td className="align-items-center">{row[col]}</td> // access property value
-                                        })
-                                    }
-                                    {apiCall ? null : <td style={{ "width": "118px" }}>{updateCell(row)}{deleteCell(row)}</td>}
-                                </tr>
-                            )
+                        headers.map((h) => {
+                            return <td key={h}><b>{h}</b></td>
                         })
                     }
-                </tbody>
-            </Table>
-        </>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    data.map(row => {  // data - array of objects, row - single object
+                        return (
+                            <tr key={row.id}>
+                                {
+                                    columns.map((col, i) => { // col - property of object
+                                        return col === 'status' ?
+                                            <p className="m-0">
+                                                <Badge bg={row[col] === 'In-progress' ? 'warning' : row[col] === 'Done' ? 'success' : 'danger'}>
+                                                    {row[col]}
+                                                </Badge>
+                                                <option></option>
+                                            </p> :
+                                            <td  className="align-items-center">{row[col]}</td> // access property value
+                                    })
+                                }
+                                {apiCall? null:<td style={{ "width": "118px" }}>{updateCell(row)}{deleteCell(row)}</td>}
+                            </tr>
+                        )
+                    })
+                }
+            </tbody>
+        </Table>
     )
 
 }

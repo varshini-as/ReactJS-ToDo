@@ -20,10 +20,10 @@ export default function Login() {
     const onSubmit = async () => {
         const u = userList.find(u => u.user === user);
         if (u && u.password === pwd) {  // user object found and password match
-            const res = await getUser(user);
+            // const res = await getUser(user);
             setErr(false);
             setUser(u.user);
-            navigate('/profile/home');
+            navigate('/profile');
         } else {
             setErr(true);
         }

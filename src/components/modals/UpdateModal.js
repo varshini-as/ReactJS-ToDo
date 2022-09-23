@@ -16,7 +16,7 @@ export default function UpdateModal() {
     return (
         <Modal show={updateModal}>
             <Modal.Header><b>Update Task</b></Modal.Header>
-            <Modal.Body className="update-modal align-items-center">
+            <Modal.Body className="update-modal align-items-center gap-2">
                 <Form.Label>Change task:</Form.Label>
                 <Form.Select defaultValue={""}
                     style={{ "margin-left": "5px", "width": "33%" }}

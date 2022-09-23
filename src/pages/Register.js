@@ -92,10 +92,13 @@ export default function Register() {
                         onClick={onSubmit}
                         className="btn btn-primary rounded w-100"
                         disabled={!valid(user, pwd, confirm) ? true : false}
-                        >Register</Button>
+                    >Register</Button>
                 </Form>
             </Card.Body>
-            <Card.Footer className="text-center">Already have an account? Login <a><Link to="/">here!</Link></a></Card.Footer>
+            <Card.Footer className="text-center">
+                Already have an account? Login
+                <a><Link to="/">here!</Link></a>
+            </Card.Footer>
         </Card>
     </div>);
 }

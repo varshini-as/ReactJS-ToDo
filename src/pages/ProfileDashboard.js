@@ -9,7 +9,6 @@ import {
     CDBSidebarMenu,
     CDBSidebarMenuItem,
 } from 'cdbreact';
-import { getTasks, getUser } from "../service/crud";
 
 export const ToDoContext = createContext();
 
@@ -31,29 +30,37 @@ export const taskReducer = (state, action) => {
 export default function ProfileDashboard() {
 
     const { user, setUser, setPwd } = useContext(UserContext);
-    const found = JSON.parse(localStorage.getItem("Users")).find((obj) => obj.user === user).Tasks;
+    console.log(
+        JSON.parse(
+            localStorage.getItem(
+                "Users"
+            )
+        ).findIndex((u) => u.user ===  user)
+    );
 
+    // JSON.parse(localStorage.getItem("Users")).find((obj) => obj.user === user).Tasks:[];
 
-    const [tasks, setTasks] = useState([]);
+    // const [tasks, setTasks] = useState([]);
+    // const [loading, setLoading] = useState(false);
 
-    const getData = async () => {
-        const userInfo = await getUser(user);
-        const tasks = await userInfo[0].Tasks;
-        return tasks;
-        // setTasks(tasks);
-        // const [currentTaskList, dispatch] = useReducer(taskReducer, tasks);
-    }
+    // const getData = async (user) => {
+    //     setLoading(true);
+    //     const tasks = await getTasks(user);
+    //     if (tasks) {
+    //         setTasks(tasks.Tasks);
+    //         setLoading(false);
+    //     }
+    // }
 
     const [currentTaskList, dispatch] = useReducer(taskReducer, JSON.parse(localStorage.getItem("Users")).find((obj) => obj.user === user).Tasks);
-
+    console.log(currentTaskList);
     useEffect(() => {
         let users = JSON.parse(localStorage.getItem("Users"));
         let userIndex = users.findIndex((u) => u.user === user)
         users[userIndex].Tasks = currentTaskList;
         localStorage.setItem("Users", JSON.stringify(users));
         // getData();
-    }, [currentTaskList]);
-
+    }, [currentTaskList, user]);
 
     const navigate = useNavigate();
 
@@ -76,19 +83,19 @@ export default function ProfileDashboard() {
                             </CDBSidebarHeader>
                             <CDBSidebarContent className="sidebar-content">
                                 <CDBSidebarMenu>
-                                    <NavLink exact to="/profile/home" activeClassName="activeClicked">
+                                    <NavLink exact to="/profile/home">
                                         <CDBSidebarMenuItem icon="clipboard-check">Task List</CDBSidebarMenuItem>
                                     </NavLink>
-                                    <NavLink exact to="/profile/add" activeClassName="activeClicked">
+                                    <NavLink exact to="/profile/add">
                                         <CDBSidebarMenuItem icon="plus">Add Task</CDBSidebarMenuItem>
                                     </NavLink>
-                                    <NavLink exact to="/profile/assignee" activeClassName="activeClicked">
+                                    <NavLink exact to="/profile/assignee">
                                         <CDBSidebarMenuItem icon="user">Assignee Status</CDBSidebarMenuItem>
                                     </NavLink>
-                                    <NavLink exact to="/profile/completed" activeClassName="activeClicked">
+                                    <NavLink exact to="/profile/completed">
                                         <CDBSidebarMenuItem icon="check">Completed Tasks</CDBSidebarMenuItem>
                                     </NavLink>
-                                    <NavLink exact to="/profile/country" activeClassName="activeClicked">
+                                    <NavLink exact to="/profile/country">
                                         <CDBSidebarMenuItem icon="info">Data from API</CDBSidebarMenuItem>
                                     </NavLink>
                                     <CDBSidebarMenuItem icon="signout">
