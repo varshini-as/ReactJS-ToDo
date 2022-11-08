@@ -3,36 +3,32 @@ import { Card, Form, Button } from "react-bootstrap";
 import { UserContext } from "../App";
 import { Link, useNavigate } from "react-router-dom";
 import userLogo from '.././user.png'
-import { getUser } from "../service/crud";
 
 export default function Login() {
 
-    // localStorage.setItem("Users", JSON.stringify([{ "user": "admin", "password": "123456", "Tasks": [{ "task": "admin t1", "status": "In-progress", "assigned": "Pooja" }] }]));
-    // ;
 
     const navigate = useNavigate();
     const { user, setUser, pwd, setPwd } = useContext(UserContext);
     const [err, setErr] = useState(false);
 
 
-    const userList = JSON.parse(localStorage.getItem("Users"));
+    const userList = JSON.parse(localStorage.getItem("Users"))? JSON.parse(localStorage.getItem("Users")): [];
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"))? JSON.parse(localStorage.getItem("currentUser")): null;
+
+    if(currentUser){
+        navigate('/profile');
+    }
 
     const onSubmit = async () => {
         const u = userList.find(u => u.user === user);
         if (u && u.password === pwd) {  // user object found and password match
-            // const res = await getUser(user);
             setErr(false);
             setUser(u.user);
             navigate('/profile');
         } else {
             setErr(true);
         }
-        // const userInfo = await getUser(user);
-        // if(userInfo && userInfo[0].password === pwd){
-        //     setUser(userInfo[0].user);
-        //     navigate('/profile/home');
-        // }
-        // setErr(true);
     }
 
     return (
@@ -65,10 +61,15 @@ export default function Login() {
                         <Button type="button"
                             onClick={onSubmit}
                             className="btn btn-primary rounded text-center w-100"
-                            >Log in</Button>
+                        >Log in</Button>
                     </Form>
                 </Card.Body>
-                <Card.Footer className="text-center">Don't have an account? Sign up <a><Link to="/register">here!</Link></a></Card.Footer>
+                <Card.Footer className="text-center">
+                    Don't have an account? Sign up
+                    <a>
+                        <Link to="/register">here!</Link>
+                    </a>
+                </Card.Footer>
             </Card>
         </div>
     )

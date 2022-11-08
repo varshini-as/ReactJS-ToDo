@@ -9,6 +9,7 @@ import {
     CDBSidebarMenu,
     CDBSidebarMenuItem,
 } from 'cdbreact';
+import DeleteModal from "../components/modals/DeleteModal";
 
 export const ToDoContext = createContext();
 
@@ -30,36 +31,21 @@ export const taskReducer = (state, action) => {
 export default function ProfileDashboard() {
 
     const { user, setUser, setPwd } = useContext(UserContext);
-    console.log(
-        JSON.parse(
-            localStorage.getItem(
-                "Users"
-            )
-        ).findIndex((u) => u.user ===  user)
-    );
 
-    // JSON.parse(localStorage.getItem("Users")).find((obj) => obj.user === user).Tasks:[];
+    const [currentTaskList, dispatch] = useReducer(taskReducer,
+        JSON.parse(localStorage.getItem("Users")).find((obj) => obj.user === user).Tasks);
 
-    // const [tasks, setTasks] = useState([]);
-    // const [loading, setLoading] = useState(false);
 
-    // const getData = async (user) => {
-    //     setLoading(true);
-    //     const tasks = await getTasks(user);
-    //     if (tasks) {
-    //         setTasks(tasks.Tasks);
-    //         setLoading(false);
-    //     }
-    // }
+    const [show, setShow] = useState(false);
+    const [updateModal, setUpdateModal] = useState(false);
+    const [currentTask, setCurrentTask] = useState();
 
-    const [currentTaskList, dispatch] = useReducer(taskReducer, JSON.parse(localStorage.getItem("Users")).find((obj) => obj.user === user).Tasks);
-    console.log(currentTaskList);
+
     useEffect(() => {
         let users = JSON.parse(localStorage.getItem("Users"));
         let userIndex = users.findIndex((u) => u.user === user)
         users[userIndex].Tasks = currentTaskList;
         localStorage.setItem("Users", JSON.stringify(users));
-        // getData();
     }, [currentTaskList, user]);
 
     const navigate = useNavigate();
@@ -71,13 +57,15 @@ export default function ProfileDashboard() {
     }
 
     return (
-        <ToDoContext.Provider value={{ currentTaskList, dispatch }}>
+        <ToDoContext.Provider value={{ currentTaskList, dispatch, currentTask, setCurrentTask }}>
             <div>
                 <div className="d-flex">
                     <div className="profile-nav">
                         <CDBSidebar textColor="#fff" backgroundColor="#333">
                             <CDBSidebarHeader prefix={<i className="fa fa-bars fa-large"></i>}>
-                                <a href="/profile/home" className="text-decoration-none" style={{ color: 'inherit' }}>
+                                <a href="/profile/home"
+                                    className="text-decoration-none"
+                                    style={{ color: 'inherit' }}>
                                     Dashboard
                                 </a>
                             </CDBSidebarHeader>
@@ -99,14 +87,18 @@ export default function ProfileDashboard() {
                                         <CDBSidebarMenuItem icon="info">Data from API</CDBSidebarMenuItem>
                                     </NavLink>
                                     <CDBSidebarMenuItem icon="signout">
-                                        <button className="btn btn-primary" onClick={(e) => handleSignOut()}>Log out</button>
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={(e) => handleSignOut()}>
+                                            Log out
+                                        </button>
                                     </CDBSidebarMenuItem>
                                 </CDBSidebarMenu>
                             </CDBSidebarContent>
                         </CDBSidebar>
                     </div>
                     <UpdateModal></UpdateModal>
-
+                    {/* <DeleteModal></DeleteModal> */}
                     <Outlet />
                 </div>
             </div>

@@ -19,24 +19,11 @@ function App() {
   const [user, setUser] = useState();
   const [pwd, setPwd] = useState();
 
-  // localStorage.setItem("Users", JSON.stringify(
-  //   [{
-  //     "user": "admin", "password": "123456", "Tasks": [
-  //       {
-  //         "task": "admin t1",
-  //         "status": "Pending",
-  //         "assigned": "ABC"
-  //       }
-  //     ]
-  //   }]
-  // ))
-
   const [show, setShow] = useState(false);
   const [updateModal, setUpdateModal] = useState(false);
   const [oldValue, setOldVal] = useState();
   const [currentTask, setCurrentTask] = useState();
   const [status, setStatus] = useState("Pending");
-  const [search, setSearch] = useState();
 
 
   const handleSelect = (selected) => {
@@ -44,7 +31,7 @@ function App() {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, pwd, setPwd, updateModal, setUpdateModal, oldValue, setOldVal, handleSelect, status, setShow, currentTask, setCurrentTask, search, setSearch }}>
+    <UserContext.Provider value={{ user, setUser, pwd, setPwd, updateModal, setUpdateModal, oldValue, setOldVal, handleSelect, status, setShow, currentTask, setCurrentTask }}>
       <div className="App">
         <Nav></Nav>
         <BrowserRouter>

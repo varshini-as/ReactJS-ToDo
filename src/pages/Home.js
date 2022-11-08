@@ -1,12 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import CustomTable from "../components/CustomTable";
 import { ToDoContext } from "./ProfileDashboard";
 
 export default function Home() {
 
-    // const { loading, tasks } = useContext(ToDoContext);
-    const {currentTaskList} = useContext(ToDoContext);
-    console.log(currentTaskList);
+    const { currentTaskList } = useContext(ToDoContext);
 
     return (
         <div className="outlet">

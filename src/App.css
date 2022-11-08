@@ -40,12 +40,6 @@
   border-right: none;
 }
 
-.center-block {
-  outline: 0;
-  width: 200px;
-  border-width: 0 0 1px;
-}
-
 .logo {
   margin-left: 43%;
   height: 60px;
@@ -65,4 +59,8 @@
 .scroll-table{
   height: 100%;
   overflow-y: scroll;
+}
+
+.empty{
+  background-color: rgb(170, 178, 185);
 }

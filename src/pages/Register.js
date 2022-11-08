@@ -3,7 +3,8 @@ import { Form, Button, Card } from "react-bootstrap";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Register() {
-    const usersInfo = JSON.parse(localStorage.getItem("Users")) ? JSON.parse(localStorage.getItem("Users")) : [];
+    const usersInfo = JSON.parse(localStorage.getItem("Users")) ?
+        JSON.parse(localStorage.getItem("Users")) : [];
     const users = usersInfo ? usersInfo.map(u => u.user) : [];
 
     const [user, setUser] = useState('');
@@ -43,6 +44,7 @@ export default function Register() {
         <Card className="sign-in-card shadow">
             <Card.Body className="m-2">
                 <h4 className="text-center">Sign Up</h4>
+
                 <Form>
                     <Form.Group className="mb-3 gap-2">
                         <Form.Label>Your username</Form.Label>
@@ -60,6 +62,7 @@ export default function Register() {
                                 <p>*This user already exists.</p>
                             </div>}
                     </Form.Group>
+
                     <Form.Group className="mb-3 gap-2">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
@@ -69,9 +72,14 @@ export default function Register() {
                             required />
                         {!pwd &&
                             <div className="text-danger text-center">
-                                <p>*This field is empty. Password must have at least 6 characters.</p>
+                                <p>*This field is empty.</p>
+                            </div>}
+                        {pwd.length >0 && pwd.length<6 &&
+                            <div className="text-danger text-center">
+                                <p>*Password must have at least 6 characters.</p>
                             </div>}
                     </Form.Group>
+
                     <Form.Group className="mb-2 gap-2">
                         <Form.Label>Confirm Password</Form.Label>
                         <Form.Control
@@ -88,6 +96,7 @@ export default function Register() {
                                 <p>*Passwords do not match.</p>
                             </div>}
                     </Form.Group>
+
                     <Button type="button"
                         onClick={onSubmit}
                         className="btn btn-primary rounded w-100"
@@ -95,6 +104,7 @@ export default function Register() {
                     >Register</Button>
                 </Form>
             </Card.Body>
+
             <Card.Footer className="text-center">
                 Already have an account? Login
                 <a><Link to="/">here!</Link></a>
